@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import Posts from './components/Posts';
 import Test from './components/Test';
+import Books from './components/Books';
+import BookItems from './components/BookItems';
 import './css/Test.css'; 
 
 function App() {
@@ -11,11 +13,12 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      <div class="get-posts">
+      <div className="get-posts">
         <Posts/>
         <Test/>
+        <Books/>
       </div>
-      <footer class="app-footer">
+      <footer className="app-footer">
         <p>This is a footer.</p>
       </footer>
     </div>

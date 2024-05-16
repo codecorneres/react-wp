@@ -12,14 +12,24 @@ export class Posts extends Component {
             posts: res.data,
             isLoaded: true
         }))
+    
         .catch(err => console.log(err))
     }
     render(){
         const {posts, isLoaded} = this.state;
+        //console.log(this.state);
         return (
             <div>
                 {posts.map(post =>
-                    <><h4>{post.title.rendered}</h4><p>{post.content.rendered}</p></>
+                    <div>
+                    <h4>{post.title.rendered}</h4>
+                    <div className="featured-image">
+                        <img src="" />
+                    </div>
+                    
+                    <p>{post.content.rendered}</p>
+                    </div>
+                    
                 )}
             </div>
         );
