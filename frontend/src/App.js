@@ -5,21 +5,16 @@ import Posts from './components/Posts';
 function App() {
   return (
     <div className="App">
-      <Posts/>
-      {/* <header className="App-header">
+      
+      <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+      </header>
+      <div class="get-posts">
+        <Posts/>
+      </div>
+      <footer class="app-footer">
+        <p>This is a footer.</p>
+      </footer>
     </div>
   );
 }
