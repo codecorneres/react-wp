@@ -1,8 +1,17 @@
 .Button {
-    padding: 20px;
+    padding: 10px;
     color:#fff;
     font-weight: 700;
     font-size: 45px;
     border: 10px solid #000;
     background-color: blue;
+    margin: 30px;
+  }
+  .app-footer{
+    padding: 15px;
+    background-color: black;
+    color: #fff;  
+  }
+  .App .divider{
+    border-bottom: 2px solid #6d6a6a;
   }
