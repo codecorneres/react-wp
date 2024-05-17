@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Posts from './components/Posts';
 import Test from './components/Test';
-import Books from './components/Books';
+import {Books} from './components/Books';
 
 import './css/Test.css'; 
 
@@ -15,13 +15,13 @@ function App() {
       </header>
       <div className="get-all-data">
         <div className='divider'>
-        <Posts/>
+        <Posts />
         </div>
         <div className='divider'>
-        <Books/>
+        <Books />
         </div>
-        <div className=''>
-        <Test/>
+        <div className='divider'>
+        <Test />
         </div>
       
       </div>
