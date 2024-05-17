@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Posts from './components/Posts';
 import Test from './components/Test';
-import {Books} from './components/Books';
+import Books from './components/Books';
 
 import './css/Test.css'; 
 

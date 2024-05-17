@@ -23,4 +23,4 @@ const Books = () => {
     );
 }
 
-export {Books}
+export default Books
