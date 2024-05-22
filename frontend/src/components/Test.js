@@ -17,10 +17,9 @@ function Test(){
   };
 
   const deleteByIndex = (index) => {
-    //console.log(index);
-    setList(list => {
-      return list.filter((_, i) => i !== index)
-    })
+    const data = list.filter((name, i) => i !== index);
+    console.log(data, 'dta')
+    setList(data)
   }
 
   const renderListText = () => {
@@ -103,8 +102,8 @@ function Test(){
         
           {
             list.map((item, index) => (
-             //console.log(item.key)
-              <li style={{ backgroundColor: 'pink', margin: '8px 0', padding: '5px 10px'}}>{item} <button className="" onClick={() => deleteByIndex(index)}>Delete</button></li>
+          
+              <li style={{ backgroundColor: 'pink', margin: '8px 0', padding: '5px 10px'}}>{item} <button className="" onClick={() => deleteByIndex(index)}>Delete</button> <button className="" onClick=''>edit</button></li>
             ))
           }
           
