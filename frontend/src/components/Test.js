@@ -9,6 +9,8 @@ function Test(){
 
   const [list, setList] = useState([]);
   const [listInput, setListInput] = useState('');
+  const [editListInput, setEditListInput] = useState('');
+  const [editIndex, setEditIndex] = useState('');
 
   const listTextInput = (e) => {
     setListInput(
@@ -18,8 +20,36 @@ function Test(){
 
   const deleteByIndex = (index) => {
     const data = list.filter((name, i) => i !== index);
-    console.log(data, 'dta')
+    //console.log(data, 'dta')
     setList(data)
+  }
+
+  const editByIndex = (index) => {
+    console.log(index,"index");
+    const editData = list.find((name, i) => i == index);
+    console.log(editData,"data");
+    setEditListInput(
+      //e.target.value,
+      editData
+   );
+   setEditIndex(index);
+  }
+  const editListTextInput = (e) => {
+    setEditListInput(
+      e.target.value,
+   );
+   
+  };
+
+  const renderEditListText = () => {
+    console.log(editIndex, editListInput, 'clicked')
+    const updateData = list.map((editListInput, editIndex));
+
+     if(editListInput && editIndex){
+      
+      setList(updateData);
+     }
+   
   }
 
   const renderListText = () => {
@@ -29,6 +59,7 @@ function Test(){
       // console.log(newList);
       // setList(newList);
       setList([...list, listInput]);
+      setListInput('');
     }
     
   }
@@ -98,12 +129,18 @@ function Test(){
         <input type='text' name='list-name' className='text' onChange={listTextInput} value={listInput} />
         <button className="" onClick={renderListText}>Add Name</button>
         <h4>Names</h4>
+        <input type='text' name='update-name' className='text' onChange={editListTextInput} value={editListInput} />
+        <button className="" onClick={renderEditListText}>Update Name</button>
         <ul>
         
           {
             list.map((item, index) => (
           
-              <li style={{ backgroundColor: 'pink', margin: '8px 0', padding: '5px 10px'}}>{item} <button className="" onClick={() => deleteByIndex(index)}>Delete</button> <button className="" onClick=''>edit</button></li>
+              <li style={{ backgroundColor: 'pink', margin: '8px 0', padding: '5px 10px'}}>
+                {item} 
+              <button className="" onClick={() => deleteByIndex(index)}>Delete</button> 
+              <button className="" onClick={() => editByIndex(index)}>edit</button>
+              </li>
             ))
           }
           
