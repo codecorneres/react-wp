@@ -18,15 +18,13 @@ function Test(){
 
 
   const renderListText = () => {
+  
     if(listInput){
-      setList(listInput);
-      
+      // const newList = list.concat( listInput );
+      // console.log(newList);
+      // setList(newList);
+      setList([...list, listInput]);
     }
-    // if(listInput){
-    //   const newList = listInput.concat({ name });
-
-    //   setList(newList);
-    // }
     
   }
 
@@ -70,35 +68,40 @@ function Test(){
   };
   return (
     <>
-
-    <div className='counter-wrap'>
-      <h1>{increament}</h1>
-      <button className="" onClick={clicked}>Play</button>
-      <button className="" onClick={stoped}>Stop</button>
-    </div>
-
-    <div className='render-text-wrap'>
-      <input type='text' name='name' className='text' onChange={handlChange} value={input} />
-      <button className="" onClick={renderText}>button</button>
-      <p>{text}</p>
-    </div>
-
-    <div className='add-clicked-btn-name-wrap'>
-      <h1>My name is {name}</h1>
-      <div className='text-btns'>
-        <button className="" onClick={() => addName('Suraj')}>Suraj</button>
-        <button className="" onClick={() => addName('Rajat')}>Rajat</button>
+    <div className='test-wrap container'>
+      <div className='counter-wrap'>
+        <h1>{increament}</h1>
+        <button className="" onClick={clicked}>Play</button>
+        <button className="" onClick={stoped}>Stop</button>
       </div>
-    </div>
 
-    <div className='render-list-text-wrap'>
-      <input type='text' name='list-name' className='text' onChange={listTextInput} value={listInput} />
-      <button className="" onClick={renderListText}>Add Name</button>
-      <ul>
-        <li><u>Names</u></li>
-        {list}
-        
-      </ul>
+      <div className='render-text-wrap'>
+        <input type='text' name='name' className='text' onChange={handlChange} value={input} />
+        <button className="" onClick={renderText}>button</button>
+        <p>{text}</p>
+      </div>
+
+      <div className='add-clicked-btn-name-wrap'>
+        <h1>My name is {name}</h1>
+        <div className='text-btns'>
+          <button className="" onClick={() => addName('Suraj')}>Suraj</button>
+          <button className="" onClick={() => addName('Rajat')}>Rajat</button>
+        </div>
+      </div>
+
+      <div className='render-list-text-wrap'>
+        <input type='text' name='list-name' className='text' onChange={listTextInput} value={listInput} />
+        <button className="" onClick={renderListText}>Add Name</button>
+        <h4>Names</h4>
+        <ul>
+          {
+            list.map((item) => (
+              <li style={{ backgroundColor: 'pink', margin: '8px 0', padding: '5px 10px'}}>{item} <button className="" onClick=''>Delete</button></li>
+            ))
+          }
+          
+        </ul>
+      </div>
     </div>
     </>
   );
