@@ -15,3 +15,6 @@
   .App .divider{
     border-bottom: 2px solid #6d6a6a;
   }
+  button {
+    margin-left: 10px;
+  }
