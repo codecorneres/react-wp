@@ -16,6 +16,12 @@ function Test(){
     );
   };
 
+  const deleteByIndex = (index) => {
+    //console.log(index);
+    setList(list => {
+      return list.filter((_, i) => i !== index)
+    })
+  }
 
   const renderListText = () => {
   
@@ -94,11 +100,14 @@ function Test(){
         <button className="" onClick={renderListText}>Add Name</button>
         <h4>Names</h4>
         <ul>
+        
           {
-            list.map((item) => (
-              <li style={{ backgroundColor: 'pink', margin: '8px 0', padding: '5px 10px'}}>{item} <button className="" onClick=''>Delete</button></li>
+            list.map((item, index) => (
+             //console.log(item.key)
+              <li style={{ backgroundColor: 'pink', margin: '8px 0', padding: '5px 10px'}}>{item} <button className="" onClick={() => deleteByIndex(index)}>Delete</button></li>
             ))
           }
+          
           
         </ul>
       </div>
