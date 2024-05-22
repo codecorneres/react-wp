@@ -5,11 +5,39 @@ function Test(){
   const [input, setInput] = useState('');
   const [increament, setIncreament] = useState(0);
   const [stop, setStop] = useState(false);
-
   const [name, setName] = useState('');
 
+  const [list, setList] = useState([]);
+  const [listInput, setListInput] = useState('');
+
+  const listTextInput = (e) => {
+    setListInput(
+       e.target.value,
+    );
+  };
+
+
+  const renderListText = () => {
+    if(listInput){
+      setList(listInput);
+      
+    }
+    // if(listInput){
+    //   const newList = listInput.concat({ name });
+
+    //   setList(newList);
+    // }
+    
+  }
+
+
  const addName = (name) => {
-  setName(name);
+  if(name == 'Suraj'){
+    setName(name+' Bhardwaj, Php Developer');
+  }else if(name == 'Rajat'){
+    setName(name+' Sharma, React Developer')
+  }
+  
  }
   const stoped = () => {
     setStop(false);
@@ -61,6 +89,16 @@ function Test(){
         <button className="" onClick={() => addName('Suraj')}>Suraj</button>
         <button className="" onClick={() => addName('Rajat')}>Rajat</button>
       </div>
+    </div>
+
+    <div className='render-list-text-wrap'>
+      <input type='text' name='list-name' className='text' onChange={listTextInput} value={listInput} />
+      <button className="" onClick={renderListText}>Add Name</button>
+      <ul>
+        <li><u>Names</u></li>
+        {list}
+        
+      </ul>
     </div>
     </>
   );
