@@ -11,6 +11,7 @@ function Test(){
   const [listInput, setListInput] = useState('');
   const [editListInput, setEditListInput] = useState('');
   const [editIndex, setEditIndex] = useState('');
+  const [updateField, setUpdateField] = useState(false);
 
   const listTextInput = (e) => {
     setListInput(
@@ -20,19 +21,22 @@ function Test(){
 
   const deleteByIndex = (index) => {
     const data = list.filter((name, i) => i !== index);
-    //console.log(data, 'dta')
+    //console.log(data, 'data')
     setList(data)
   }
 
   const editByIndex = (index) => {
-    console.log(index,"index");
+    setUpdateField(true);
+    console.log(updateField);
+    //console.log(index,"index");
     const editData = list.find((name, i) => i == index);
-    console.log(editData,"data");
+    //console.log(editData,"data");
     setEditListInput(
       //e.target.value,
       editData
    );
    setEditIndex(index);
+   
   }
   const editListTextInput = (e) => {
     setEditListInput(
@@ -53,7 +57,8 @@ function Test(){
     });
     //console.log(newList);
     setList(newList);
-   
+    setEditListInput('');
+    setUpdateField(false);
   }
 
   const renderListText = () => {
@@ -106,6 +111,18 @@ function Test(){
      //console.log(input);
      setText( input)
   };
+  // const editField = () => {
+  //   console.log(updateField,"updateField");
+  //   if(updateField){
+  //     return (
+  //     <>
+  //     <input type='text' name='update-name' className='text' onChange={editListTextInput} value={editListInput} />
+  //     <button className='' onClick={renderEditListText}>Update Name</button>
+  //     </>
+  //     );
+  //    }
+  // }
+  
   return (
     <>
     <div className='test-wrap container'>
@@ -133,8 +150,13 @@ function Test(){
         <input type='text' name='list-name' className='text' onChange={listTextInput} value={listInput} />
         <button className="" onClick={renderListText}>Add Name</button>
         <h4>Names</h4>
+        {/* {editField()} */}
+        { updateField && 
+        <>
         <input type='text' name='update-name' className='text' onChange={editListTextInput} value={editListInput} />
-        <button className="" onClick={renderEditListText}>Update Name</button>
+      <button className='' onClick={renderEditListText}>Update Name</button>
+      </>
+        }
         <ul>
         
           {
