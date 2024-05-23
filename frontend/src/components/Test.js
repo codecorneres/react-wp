@@ -154,8 +154,8 @@ function Test(){
         { updateField && 
         <>
         <input type='text' name='update-name' className='text' onChange={editListTextInput} value={editListInput} />
-      <button className='' onClick={renderEditListText}>Update Name</button>
-      </>
+        <button className='' onClick={renderEditListText}>Update Name</button>
+        </>
         }
         <ul>
         

@@ -3,6 +3,7 @@ import './App.css';
 import Posts from './components/Posts';
 import Test from './components/Test';
 import Books from './components/Books';
+import Form from './components/Form';
 
 import './css/Test.css'; 
 
@@ -23,7 +24,9 @@ function App() {
         <div className='divider'>
         <Test />
         </div>
-      
+        <div className='divider'>
+        <Form />
+        </div>
       </div>
       <footer className="app-footer">
         <p>This is a footer.</p>

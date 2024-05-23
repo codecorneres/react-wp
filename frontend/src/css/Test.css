@@ -22,3 +22,13 @@
     text-align: left;
     margin: 10px 0px 20px 30px;
 }
+/* form.js */
+.form-data-wrap {
+  margin: 20px 0px;
+}
+.submit-button {
+  margin-top: 10px;
+}
+.form-row {
+  margin: 10px 0px;
+}
