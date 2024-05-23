@@ -42,13 +42,17 @@ function Test(){
   };
 
   const renderEditListText = () => {
-    console.log(editIndex, editListInput, 'clicked')
-    const updateData = list.map((editListInput, editIndex));
+    //console.log(editIndex, editListInput, 'clicked')
+    const newList = list.map((item,index) => {
+     // console.log(index);
+      if (index === editIndex) {
+        item = editListInput;
+      }
 
-     if(editListInput && editIndex){
-      
-      setList(updateData);
-     }
+      return item;
+    });
+    //console.log(newList);
+    setList(newList);
    
   }
 
