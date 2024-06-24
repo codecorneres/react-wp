@@ -5,7 +5,11 @@ function Form () {
     const [list, setList] = useState([]);
     const [listInput, setListInput] = useState('');
     const [telInput, setTelInput] = useState('');
+    const [error, setError] = useState('');
+
     const [editListInput, setEditListInput] = useState('');
+    //const [editTelInput, setEditTelInput] = useState('');
+
     const [editIndex, setEditIndex] = useState('');
     const [updateField, setUpdateField] = useState(false);
 
@@ -15,18 +19,19 @@ function Form () {
       };
     const [allInputData, setAllInputData] = useState(initialvalues);
 
-    const listTelInput = (e) => {
-        //console.log(e.target.value);
-        setTelInput(
-            e.target.value,
-        );
-    };
-
     const listTextInput = (e) => {
+      //console.log(e.target.value);
         setListInput(
            e.target.value,
         );
       };
+
+    const listTelInput = (e) => {
+        //console.log(e.target.value);
+        setTelInput(
+           e.target.value,
+        );
+    };
     
       const deleteByIndex = (index) => {
         const data = list.filter((name, i) => i !== index);
@@ -37,7 +42,7 @@ function Form () {
         setUpdateField(true);
         //console.log(updateField);
 
-        const editData = list.find((name, i) => i == index);
+        const editData = list.find((name,i) => i == index);
         setEditListInput(
           editData
        );
@@ -52,30 +57,45 @@ function Form () {
       };
     
       const renderEditListText = () => {
+
         const newList = list.map((item,index) => {
          
           if (index === editIndex) {
-            item = editListInput;
+            
+            item = setEditListInput({
+              editListInput,
+            }
+              
+                    );
+           
+                          
           }
     
           return item;
         });
+        console.log(newList);
         setList(newList);
         setEditListInput('');
+        //setEditTelInput('');
         setUpdateField(false);
       }
+
+   
     
       const renderListText = () => {
-        console.log(allInputData);
-        if(allInputData){
-            setList([...list,allInputData:{name:listInput,number:telInput}]);
-            setListInput('');
-        }
+      
+        // console.log([...list, {name:listInput,number:telInput}]);
+     
+        if (listInput && telInput) {
+          setList([...list, {name:listInput,number:telInput}]);
+          setError('');
+          setListInput('');
+          setTelInput('');
+        } else {
+          setError('Please fill form!');
+        }     
         
-        // if(listInput){
-        //   setList([...list, listInput]);
-        //   setListInput('');
-        // }
+      
         
       }
 
@@ -95,20 +115,22 @@ function Form () {
                     <button value="Add Data" onClick={renderListText} >Add Data</button>
                     
                 </div>
+                {error && <div style={{ color: 'red'}}>{error}</div>}
                
             {/* </form> */}
-            
+        
            
             { updateField && 
             <>
             <div className="form-row">
-                <input type='text' name='update-name' className='text' onChange={editListTextInput} value={editListInput} />
-                <input type='text' name='update-number' className='number' onChange='' value='' />
+                <input type='text' name='update-name' className='text' onChange={editListTextInput} value={editListInput.name} />
+                <input type='text' name='update-number' className='number' onChange={editListTextInput} value={editListInput.number} />
                 <button className='' onClick={renderEditListText}>Update</button>
             </div>
             </>
             }
             
+            {list.length > 0 && 
             <div className="list-table-data-wrap">
                 <table>
                     <thead>
@@ -121,11 +143,12 @@ function Form () {
                     </thead>
                     <tbody>
                         {
-                            list.map((item, index) => (
+                            
+                           list.map((list, index) => (
                                 <tr>
                                     <td>{index+1}</td>
-                                    <td>{item}</td>
-                                    <td></td>
+                                    <td>{list.name}</td>
+                                    <td>{list.number}</td>
                                     <td>
                                         <button className="" onClick={() => deleteByIndex(index)}>Delete</button> 
                                         <button className="" onClick={() => editByIndex(index)}>Edit</button>
@@ -136,6 +159,7 @@ function Form () {
                     </tbody>
                 </table>
             </div>
+}
           </div>
         </div>
         </>
