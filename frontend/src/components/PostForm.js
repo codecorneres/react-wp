@@ -23,10 +23,10 @@ import axios from "axios";
 
 export default function PostForm () {
 
-    // const loginData = {
-    //     username: "code",
-    //     password: "admin123"
-    // };
+    const loginData = {
+        username: "code",
+        password: "admin123"
+    };
 axios.post('http://localhost/react-wp/wp-json/v1/token', {
     username: "code",
     password: "admin123"
