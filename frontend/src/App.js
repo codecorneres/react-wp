@@ -5,6 +5,8 @@ import Test from './components/Test';
 import Books from './components/Books';
 import Form from './components/Form';
 
+import PostForm from './components/PostForm';
+
 import './css/Test.css'; 
 
 function App() {
@@ -16,9 +18,12 @@ function App() {
       </header>
       <div className="get-all-data">
         <div className='divider'>
-        <Posts />
+          <PostForm />
         </div>
-        <div className='divider'>
+        {/* <div className='divider'>
+          <Posts />
+        </div> */}
+        {/* <div className='divider'>
         <Books />
         </div>
         <div className='divider'>
@@ -26,7 +31,7 @@ function App() {
         </div>
         <div className='divider'>
         <Form />
-        </div>
+        </div> */}
       </div>
       <footer className="app-footer">
         <p>This is a footer.</p>
