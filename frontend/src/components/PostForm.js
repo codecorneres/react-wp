@@ -1,26 +1,46 @@
 import React,{ useEffect, useState } from "react";
 import useFetch from './useFetch';
+import axios from "axios";
 
-function useAddPost(url) {
-    const [data, setData] = useState("");
-    useEffect(() => {
-        async function loadData() {
-            const response = await fetch(url);
-            if(!response.ok) {
-                // oups! something went wrong
-                return;
-            }
+// function useAddPost(url) {
+//     const [data, setData] = useState("");
+//     useEffect(() => {
+//         async function loadData() {
+//             const response = await fetch(url);
+//             if(!response.ok) {
+//                 // oups! something went wrong
+//                 return;
+//             }
     
-            const posts = await response.json();
-            setData(posts);
-        }
+//             const posts = await response.json();
+//             setData(posts);
+//         }
     
-        loadData();
-    }, [url]);
-    return data;
-}
+//         loadData();
+//     }, [url]);
+//     return data;
+// }
 
 export default function PostForm () {
+
+    // const loginData = {
+    //     username: "code",
+    //     password: "admin123"
+    // };
+axios.post('http://localhost/react-wp/wp-json/v1/token', {
+    username: "code",
+    password: "admin123"
+})
+.then((res) => {
+    console.log(res.data);
+    localStorage.setItem('token', res.data.token);
+    localStorage.setItem('user_nicename', res.data.user_nicename);
+    localStorage.setItem('user_email', res.data.user_email);
+    localStorage.setItem('user_display_name', res.data.user_display_name);
+})
+.catch((err) => {
+    console.log(err);
+});
 
     const addPost = useAddPost('http://localhost/react-wp/wp-json/wp/v2/posts');
    
@@ -43,10 +63,34 @@ export default function PostForm () {
     const submitPostFormData = (e) => {
         
         e.preventDefault();
-        setRecords([...records, formValues]);
+       // setRecords([...records, formValues]);
         console.log("form cliked.");
         //console.log({records});
-        setRecords([...addPost, formValues]);
+        //setRecords([...addPost, formValues]);
+        //console.log({addPost});
+
+        // const formdata = {
+        //     title: "",
+        //     content: "",
+        //     status: 'publish'
+        // };
+        
+        // axios.post('http://localhost/react-wp/wp-json/wp/v2/posts', formdata, {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         //'Authorization': Bearer ${localStorage.getItem('token')}
+    
+        //         'Authorization': "Basic " + window.btoa("code:admin123")
+        //                 }
+        //     })
+        //     .then((res) => {
+        //         console.log(res);           
+        //     })
+        //     .catch((err) => {
+        //         console.log(err)
+        // });
+
+        setRecords([...addPost, formdata]);
         console.log({addPost});
     }
 
