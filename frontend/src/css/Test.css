@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 .Button {
     padding: 10px;
     color:#fff;
@@ -81,4 +85,13 @@ input[type=text],textarea, select {
 .posts-wrap .post-data .nav {
   padding: 0 20px;
 }
+.posts-wrap .post-data .single-post-name {
+  display: flex;
+  padding-bottom: 18px;
+}
+.posts-wrap .post-data .single-post-name h5 {
+  
+  margin: 5px 10px;
+}
+
 /* ============= */
