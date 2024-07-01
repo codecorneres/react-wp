@@ -31,8 +31,6 @@ export default function PostForm () {
         status: 'publish'
       });
 
-    const [record, setRecord] = useState("");
-
     const addName = (e) => {
         setFormValues({ ...formValues, title: e.target.value })
        
@@ -41,6 +39,22 @@ export default function PostForm () {
         setFormValues({ ...formValues, content: e.target.value })
        
     }
+    // const [fetchData,setFetchData] = useState("");
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+            
+    //             axios.fetch('http://localhost/react-wp/wp-json/wp/v2/posts')
+    //                 .then((res) => {
+    //                     console.log(res);    
+    //                 })
+    //                 .catch((err) => {
+    //                     console.log(err)
+    //             });
+            
+    //     };
+    // }, []);
+
 
     const submitPostFormData = (e) => {
 
@@ -56,7 +70,8 @@ export default function PostForm () {
                 }
             })
             .then((res) => {
-                console.log(res);           
+                console.log(res);
+                
             })
             .catch((err) => {
                 console.log(err)
@@ -64,11 +79,11 @@ export default function PostForm () {
 
     }
 
-    const delPost = (id) => {
-        //console.log(id);
-        //console.log({formValues});
+    const [data, setData] = useState([]);
+
+    const delPost = async (id) => {
         
-        axios.get('http://localhost/react-wp/wp-json/wp/v2/posts/'+id, formValues, {
+        await axios.delete(`http://localhost/react-wp/wp-json/wp/v2/posts/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -76,13 +91,17 @@ export default function PostForm () {
                 }
             })
             .then((res) => {
-                console.log(res);           
+                //console.log(res); 
+                console.log("Post deleted:", res.data.id);
+                setData(data.filter((res) => res.id !== id));
+                   
             })
             .catch((err) => {
                 console.log(err)
         });
         
     }
+   
 
     return (
         <>
