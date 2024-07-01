@@ -3,8 +3,24 @@ import useFetch from './useFetch';
 import axios from "axios";
 
 export default function PostForm () {
+    const [posts, setPosts] = useState([]);
 
-    const posts = useFetch('http://localhost/react-wp/wp-json/wp/v2/posts');
+    useEffect(() => {
+        const fetchData = async () => {
+            
+            const response = await fetch('http://localhost/react-wp/wp-json/wp/v2/posts');
+            if(!response.ok) {
+                return;
+            }
+    
+            const posts = await response.json();
+            setPosts(posts);
+            
+        };
+        fetchData();
+    }, []);
+
+    //const posts = useFetch('http://localhost/react-wp/wp-json/wp/v2/posts');
     //console.log({posts});
 
     const loginData = {
@@ -41,26 +57,12 @@ export default function PostForm () {
     }
     // const [fetchData,setFetchData] = useState("");
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-            
-    //             axios.fetch('http://localhost/react-wp/wp-json/wp/v2/posts')
-    //                 .then((res) => {
-    //                     console.log(res);    
-    //                 })
-    //                 .catch((err) => {
-    //                     console.log(err)
-    //             });
-            
-    //     };
-    // }, []);
+  
 
 
     const submitPostFormData = (e) => {
 
         e.preventDefault();
-        //console.log("form cliked.");
-        //console.log({formValues});
     
         axios.post('http://localhost/react-wp/wp-json/wp/v2/posts', formValues, {
             headers: {
@@ -70,7 +72,8 @@ export default function PostForm () {
                 }
             })
             .then((res) => {
-                console.log(res);
+                const updatedPosts = [...posts, res.data];
+                setPosts(updatedPosts)
                 
             })
             .catch((err) => {
@@ -94,14 +97,17 @@ export default function PostForm () {
                 //console.log(res); 
                 console.log("Post deleted:", res.data.id);
                 setData(data.filter((res) => res.id !== id));
-                   
+               
             })
             .catch((err) => {
                 console.log(err)
         });
         
     }
-   
+     // Call fetchData on component mount
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
     return (
         <>
