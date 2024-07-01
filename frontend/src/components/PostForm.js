@@ -65,22 +65,22 @@ export default function PostForm () {
     }
 
     const delPost = (id) => {
-        console.log(id);
+        //console.log(id);
         //console.log({formValues});
         
-        // axios.post('http://localhost/react-wp/wp-json/wp/v2/posts/', formValues, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${localStorage.getItem('token')}`
+        axios.get('http://localhost/react-wp/wp-json/wp/v2/posts/'+id, formValues, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
                 
-        //         }
-        //     })
-        //     .then((res) => {
-        //         console.log(res);           
-        //     })
-        //     .catch((err) => {
-        //         console.log(err)
-        // });
+                }
+            })
+            .then((res) => {
+                console.log(res);           
+            })
+            .catch((err) => {
+                console.log(err)
+        });
         
     }
 
