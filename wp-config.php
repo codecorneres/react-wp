@@ -56,6 +56,8 @@ define( 'AUTH_SALT',        'put your unique phrase here' );
 define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
 define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
 define( 'NONCE_SALT',       'put your unique phrase here' );
+define('JWT_AUTH_SECRET_KEY', 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxOTgxODE5NiwiaWF0IjoxNzE5ODE4MTk2fQ.Cah3c2TsmpyBuKr8cDHVOAOyzszZIVK6dgG-koLj8po
+');
 
 /**#@-*/
 define('FS_METHOD', 'direct');
