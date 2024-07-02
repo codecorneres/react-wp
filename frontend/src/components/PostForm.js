@@ -55,10 +55,9 @@ export default function PostForm () {
         setFormValues({ ...formValues, content: e.target.value })
        
     }
-    // const [fetchData,setFetchData] = useState("");
 
-  
 
+    const [inputContent, setInputContent] = useState("");
 
     const submitPostFormData = (e) => {
 
@@ -73,7 +72,11 @@ export default function PostForm () {
             })
             .then((res) => {
                 const updatedPosts = [...posts, res.data];
-                setPosts(updatedPosts)
+                setPosts(updatedPosts);
+                if(updatedPosts){
+                    setFormValues({ ...formValues, title: '',content:'' })
+                }
+               
                 
             })
             .catch((err) => {
@@ -96,7 +99,12 @@ export default function PostForm () {
             .then((res) => {
                 //console.log(res); 
                 console.log("Post deleted:", res.data.id);
-                setData(data.filter((res) => res.id !== id));
+                //console.log(id);
+                setPosts(posts.filter((res) => res.data.id !== id));
+                
+                //return;
+                //console.log({posts});
+                
                
             })
             .catch((err) => {
@@ -104,10 +112,6 @@ export default function PostForm () {
         });
         
     }
-     // Call fetchData on component mount
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
 
     return (
         <>
@@ -117,11 +121,11 @@ export default function PostForm () {
                
                     <div className="post-div">
                         <label>Post Name:</label>
-                        <input type="text" name="post-name" onChange={addName}/>
+                        <input type="text" name="post-name" value={formValues.title} onChange={addName}/>
                     </div>
                     <div className="post-div">
                         <label>Post Content:</label>
-                        <textarea rows="10" cols="20" name="post-content" className="post-content" onChange={addContent}></textarea>
+                        <textarea rows="10" cols="20" name="post-content" value={formValues.content} className="post-content" onChange={addContent}></textarea>
                     </div>
                     <div className="post-button">
                         <button type="submit" onClick={submitPostFormData} >Add New Post</button>
