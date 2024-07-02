@@ -1,25 +1,26 @@
 import React,{ useEffect, useState } from "react";
-import useFetch from './useFetch';
 import axios from "axios";
 
 export default function PostForm () {
     const [posts, setPosts] = useState([]);
 
+    const fetchData = async () => {
+            
+        const response = await fetch('http://localhost/react-wp/wp-json/wp/v2/posts');
+        if(!response.ok) {
+            return;
+        }
+
+        const posts = await response.json();
+        setPosts(posts);
+        
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            
-            const response = await fetch('http://localhost/react-wp/wp-json/wp/v2/posts');
-            if(!response.ok) {
-                return;
-            }
-    
-            const posts = await response.json();
-            setPosts(posts);
-            
-        };
         fetchData();
     }, []);
 
+    
     //const posts = useFetch('http://localhost/react-wp/wp-json/wp/v2/posts');
     //console.log({posts});
 
@@ -87,9 +88,9 @@ export default function PostForm () {
 
     const [data, setData] = useState([]);
 
-    const delPost = async (id) => {
+    const delPost =  (id) => {
         
-        await axios.delete(`http://localhost/react-wp/wp-json/wp/v2/posts/${id}`, {
+            axios.delete(`http://localhost/react-wp/wp-json/wp/v2/posts/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -100,11 +101,11 @@ export default function PostForm () {
                 //console.log(res); 
                 console.log("Post deleted:", res.data.id);
                 //console.log(id);
-                setPosts(posts.filter((res) => res.data.id !== id));
-                
-                //return;
-                //console.log({posts});
-                
+                //const newPost = data.filter((res) => res.data.id !== id );
+                //setPosts(posts.filter((res) => res.data.id !== id));
+                fetchData();
+                //setPosts(newPost)
+                //console.log(newPost);
                
             })
             .catch((err) => {
