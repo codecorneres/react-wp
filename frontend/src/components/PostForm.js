@@ -4,10 +4,6 @@ import axios from "axios";
 export default function PostForm () {
     const [posts, setPosts] = useState([]);
 
-    const tok = "tat";
-    console.log(tok);
-    console.log("***");
-
     const fetchData = async () => {
             
         const response = await fetch('http://localhost/react-wp/wp-json/wp/v2/posts');
