@@ -8,6 +8,20 @@
  * @since Twenty Twenty-Four 1.0
  */
 
+/* begin register javascript */
+
+function bh24_registerTheme() {
+	wp_enqueue_style('custom', get_template_directory_uri() . '/assets/css/custom.css', array());
+	wp_enqueue_script('jquery_min','https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js',array(), '', true);
+	
+	wp_enqueue_script('custom', get_template_directory_uri() . '/assets/js/custom.js', array(), '', true);
+	
+  }
+  
+add_action('wp_enqueue_scripts', 'bh24_registerTheme');
+  
+/* end register javascript */
+
 /**
  * Register block styles.
  */
@@ -210,118 +224,109 @@ add_action( 'init', 'twentytwentyfour_pattern_categories' );
 function api_data_fun($args){
 
 	// $query = new WP_Query( $args ); 
-	//$token = base64_encode( 'code:admin123' ) ;
-	//$url = "http://localhost/react-wp/wp-json/api/v1/token";
-	// $url = "http://localhost/react-wp/wp-json/api-test/v1/testing";
-	// $curl = curl_init();
-	// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	// curl_setopt($curl, CURLOPT_URL, $url);
-	// $response = curl_exec($curl);
-	// echo $response; 
-	/**
-*   Generate a JWT token for future API calls to WordPress
-*/
-//private function getToken() {
-    $ch = curl_init();
+	$token = base64_encode( 'code:admin123' ) ;
 
-    curl_setopt($ch, CURLOPT_URL,'http://localhost/react-wp/wp-json/jwt-auth/v1/token');
-    curl_setopt($ch, CURLOPT_POST, 1);
+    // $ch = curl_init();
 
-    # Admin credentials here
-    curl_setopt($ch, CURLOPT_POSTFIELDS, "username=code&password=admin123"); 
+    // curl_setopt($ch, CURLOPT_URL,'http://localhost/react-wp/wp-json/api/v1/token');
+    // curl_setopt($ch, CURLOPT_POST, 1);
 
-    // receive server response ...
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // # Admin credentials here
+    // curl_setopt($ch, CURLOPT_POSTFIELDS, "username=code&password=admin123"); 
 
-    $server_output = curl_exec ($ch);
-    if ($server_output === false) {
-        die('Error getting JWT token on WordPress for API integration.');
-    }
-    $server_output = json_decode($server_output);
+    // // receive server response ...
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-    if ($server_output === null && json_last_error() !== JSON_ERROR_NONE) {
-        die('Invalid response getting JWT token on WordPress for API integration.');
-    }
+    // $server_output = curl_exec ($ch);
+    // if ($server_output === false) {
+    //     die('Error getting JWT token on WordPress for API integration.');
+    // }
+    // $server_output = json_decode($server_output);
 
-    if (!empty($server_output->token)) {
-        $token = $server_output->token; # Token is here
+    // if ($server_output === null && json_last_error() !== JSON_ERROR_NONE) {
+    //     die('Invalid response getting JWT token on WordPress for API integration.');
+    // }
+
+    // if (!empty($server_output->token)) {
+    //     $token = $server_output->token; # Token is here
 		
-        curl_close ($ch);
+    //     curl_close ($ch);
+	// 	return new WP_REST_Response($token);
+    //     //return true;
+    // } else {
+    //     die('Invalid response getting JWT token on WordPress for API integration.');
+    // }
+    // return false;
+
 		return new WP_REST_Response($token);
-        //return true;
-    } else {
-        die('Invalid response getting JWT token on WordPress for API integration.');
-    }
-    return false;
-//}
+	}
 
-//return new WP_REST_Response($token);
-}
+	function at_rest_init(){
+		// route url: domain.com/wp-json/$namespace/$route
+		$namespace = 'api/v1';
+		$route     = 'token';
 
-function at_rest_init(){
-    // route url: domain.com/wp-json/$namespace/$route
-    $namespace = 'api-test/v1';
-    $route     = 'testing';
+		register_rest_route($namespace, $route, array(
+			'methods'   		  => WP_REST_Server::READABLE,
+			'callback'  		  => 'api_data_fun',
+			//'args'                => array('post_type' => 'post','posts_per_page'   => -1),
+			'args'                => array(),
+			'permission_callback' => '__return_true'
+		));
+	}
 
-    register_rest_route($namespace, $route, array(
-        'methods'   		  => WP_REST_Server::READABLE,
-        'callback'  		  => 'api_data_fun',
-		'args'                => array('post_type' => 'post','posts_per_page'   => -1),
-		'permission_callback' => '__return_true'
-    ));
-}
+	add_action('rest_api_init', 'at_rest_init');
 
-add_action('rest_api_init', 'at_rest_init');
+	// ===========================
 
-// ===========================
+	add_action( 'init', 'generate_user_token' );
 
-add_action( 'init', 'generate_user_token' );
+	function generate_user_token(){
+		$token = get_token();
+		//$token = get_token();
+		//print_r($token);
+		if( is_wp_error($token) ) return $token;
 
-function generate_user_token(){
-    $token = get_token();
-	//$token = get_token();
-	//print_r($token);
-    if( is_wp_error($token) ) return $token;
+		//store and show token so user can user it on client side.
+	}
 
-    //store and show token so user can user it on client side.
-}
+	function get_token(){
 
-function get_token(){
+		if ( !$user_id = get_current_user_id() ){
+			return new WP_Error('user_not_logged','Cannot get token, user is not logged');
+		}
 
-    if ( !$user_id = get_current_user_id() ){
-        return new WP_Error('user_not_logged','Cannot get token, user is not logged');
-    }
+		$args = array(
+			'body' => array( 
+				'username' => 'code',
+				'password' => 'admin123'
+			),
+		);
 
-    $args = array(
-        'body' => array( 
-            'username' => 'code',
-            'password' => 'admin123'
-        ),
-    );
+		$request = wp_remote_post( get_rest_url(null,'jwt-auth/v1/token'), $args );
+		if (is_wp_error($request)) return $request;
 
-    $request = wp_remote_post( get_rest_url(null,'jwt-auth/v1/token'), $args );
-    if (is_wp_error($request)) return $request;
+		$response = wp_remote_retrieve_body( $request );
+		if (is_wp_error($response)) return $response;
 
-    $response = wp_remote_retrieve_body( $request );
-    if (is_wp_error($response)) return $response;
+		$response = json_decode($response, true);
 
-    $response = json_decode($response, true);
+		//check for errors
+		$code = ( isset($response['code']) ) ? $response['code'] : null;
+		$message = ( isset($response['message']) ) ? $response['message'] : null;
+		$data = ( isset($response['data']) ) ? $response['data'] : null;
+		$status = ( isset($data['status']) ) ? $data['status'] : null;
 
-    //check for errors
-    $code = ( isset($response['code']) ) ? $response['code'] : null;
-    $message = ( isset($response['message']) ) ? $response['message'] : null;
-    $data = ( isset($response['data']) ) ? $response['data'] : null;
-    $status = ( isset($data['status']) ) ? $data['status'] : null;
-
-    if ( $code && ($status >= 400) ){
-        return new WP_Error($code,$message,$data );
-    }
-	
-    return $response['token'];
-
-}
-add_action('wp_ajax_get_token', 'get_token');
-add_action('wp_ajax_nopriv_get_token', 'get_token');
+		if ( $code && ($status >= 400) ){
+			return new WP_Error($code,$message,$data );
+		}
+		//print_r($response);
+		//echo $response['token'];
+		return $response['token'];
+		//exit();
+	}
+	add_action('wp_ajax_get_token', 'get_token');
+	add_action('wp_ajax_nopriv_get_token', 'get_token');
 
 
 
