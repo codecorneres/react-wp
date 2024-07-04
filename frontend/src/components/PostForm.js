@@ -5,7 +5,8 @@ import LoginForm from './LoginForm';
 
 export default function PostForm () {
     const [posts, setPosts] = useState([]);
-    //console.log({LoginForm});
+    
+    
     const fetchData = async () => {
             
         const response = await fetch('http://localhost/react-wp/wp-json/wp/v2/posts');
@@ -26,23 +27,23 @@ export default function PostForm () {
     //const posts = useFetch('http://localhost/react-wp/wp-json/wp/v2/posts');
     //console.log({posts});
 
-    const loginData = {
-        username: "code",
-        password: "admin123"
-    };
+    // const loginData = {
+    //     username: "code",
+    //     password: "admin123"
+    // };
 
-    axios.post( 'http://localhost/react-wp/wp-json/jwt-auth/v1/token', loginData)
+    // axios.post( 'http://localhost/react-wp/wp-json/jwt-auth/v1/token', loginData)
         
-    .then((res) => {
-    // console.log(res.data);
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user_nicename', res.data.user_nicename);
-        localStorage.setItem('user_email', res.data.user_email);
-        localStorage.setItem('user_display_name', res.data.user_display_name);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+    // .then((res) => {
+    // // console.log(res.data);
+    //     localStorage.setItem('token', res.data.token);
+    //     localStorage.setItem('user_nicename', res.data.user_nicename);
+    //     localStorage.setItem('user_email', res.data.user_email);
+    //     localStorage.setItem('user_display_name', res.data.user_display_name);
+    // })
+    // .catch((err) => {
+    //     console.log(err);
+    // });
     
     const [formValues, setFormValues] = useState({
         title: "",
@@ -66,7 +67,7 @@ export default function PostForm () {
 
         e.preventDefault();
 
-        
+        //const token = sessionStorage.getItem("token");
     
         axios.post('http://localhost/react-wp/wp-json/wp/v2/posts', formValues, {
             headers: {

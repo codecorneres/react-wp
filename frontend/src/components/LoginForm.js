@@ -45,6 +45,7 @@ export default function LoginForm () {
                 
                 //const updatedForm = [...login, res.data];
                 setToken(res.data.token);
+                sessionStorage.setItem('token',res.data.token);
                 setLogin({ ...login, username: '',password:'' });
                 
             })
