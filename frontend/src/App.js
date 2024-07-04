@@ -6,6 +6,7 @@ import Books from './components/Books';
 import Form from './components/Form';
 
 import PostForm from './components/PostForm';
+import LoginForm from './components/LoginForm';
 
 import './css/Test.css'; 
 
@@ -17,6 +18,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <div className="get-all-data">
+      <div className='divider'>
+          <LoginForm />
+        </div>
         <div className='divider'>
           <PostForm />
         </div>

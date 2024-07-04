@@ -1,9 +1,11 @@
 import React,{ useEffect, useState } from "react";
 import axios from "axios";
+import LoginForm from './LoginForm';
+
 
 export default function PostForm () {
     const [posts, setPosts] = useState([]);
-
+    //console.log({LoginForm});
     const fetchData = async () => {
             
         const response = await fetch('http://localhost/react-wp/wp-json/wp/v2/posts');
@@ -70,6 +72,7 @@ export default function PostForm () {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
+                //'Authorization': `Basic  ${base64_encode( $username +':'+ $password )}`
                 
                 }
             })
@@ -96,6 +99,7 @@ export default function PostForm () {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
+                //'Authorization': `Basic  ${base64_encode( $username +':'+ $password )}`
                 
                 }
             })

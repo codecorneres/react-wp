@@ -39,7 +39,7 @@
 
 /* ============== form css ===== */
 
-input[type=text],textarea, select {
+input[type=text],input[type=password],textarea, select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -49,7 +49,7 @@ input[type=text],textarea, select {
   box-sizing: border-box;
 }
 
-.post-button button {
+.login-button button,.post-button button {
   /* width: 100%; */
   font-weight: 700;
   background-color: #4CAF50;
@@ -92,6 +92,18 @@ input[type=text],textarea, select {
 .posts-wrap .post-data .single-post-name h5 {
   
   margin: 5px 10px;
+}
+.error {
+  padding: 20px;
+  color: red;
+  font-weight: 700;
+  font-size: 25px;
+}
+.logged-in{
+  padding: 20px;
+  color: #4CAF50;
+  font-weight: 700;
+  font-size: 25px;
 }
 
 /* ============= */
