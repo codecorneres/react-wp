@@ -11,6 +11,8 @@ import LoginForm from './components/LoginForm';
 import './css/Test.css'; 
 
 function App() {
+
+  
   return (
     <div className="App">
       
@@ -21,9 +23,9 @@ function App() {
       <div className='divider'>
           <LoginForm />
         </div>
-        <div className='divider'>
+        {/* <div className='divider'>
           <PostForm />
-        </div>
+        </div> */}
         {/* <div className='divider'>
           <Posts />
         </div> */}

@@ -49,7 +49,7 @@ input[type=text],input[type=password],textarea, select {
   box-sizing: border-box;
 }
 
-.login-button button,.post-button button {
+.theme-btn{
   /* width: 100%; */
   font-weight: 700;
   background-color: #4CAF50;
@@ -61,7 +61,7 @@ input[type=text],input[type=password],textarea, select {
   cursor: pointer;
 }
 
-.post-button button:hover {
+.theme-btn:hover {
   background-color: #45a049;
 }
 
@@ -86,7 +86,7 @@ input[type=text],input[type=password],textarea, select {
   padding: 0 20px;
 }
 .posts-wrap .post-data .single-post-name {
-  display: flex;
+  /* display: flex; */
   padding-bottom: 18px;
 }
 .posts-wrap .post-data .single-post-name h5 {
@@ -104,6 +104,12 @@ input[type=text],input[type=password],textarea, select {
   color: #4CAF50;
   font-weight: 700;
   font-size: 25px;
+}
+
+.btn-flex{
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
 }
 
 /* ============= */
