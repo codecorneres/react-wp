@@ -27,8 +27,8 @@ export default function LoginForm () {
        
     }
 
-    const loginFormBtn = (e) => {
-        e.preventDefault();
+    const loginFormBtn = () => {
+        
         setShowLoginForm(true);
     
     }
@@ -36,13 +36,13 @@ export default function LoginForm () {
         e.preventDefault();
         setShowLoginForm(false);
         setIsToken(false);
-        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("token_access");
     
         // sessionStorage.clear();
     }
 
-    const submitLoginForm = (e) => {
-        e.preventDefault();
+    const submitLoginForm = () => {
+       // e.preventDefault();
 
         {login && (
             axios.post('http://localhost/react-wp/wp-json/jwt-auth/v1/token', login)
@@ -87,7 +87,9 @@ export default function LoginForm () {
 
     useEffect(() => {
         fetchData();
-        // checkToken();
+        if(sessionStorage.getItem("token_access")){
+            setIsToken(true);
+        }
     }, []);
 
     const [formValues, setFormValues] = useState({
