@@ -5,16 +5,17 @@ export default function LoginForm () {
 
     /*====== All States ==== */
 
-    const [login,setLogin]                  = useState({
-                                                username: "",
-                                                password: ""
-                                            });
-    const [showLoginForm, setShowLoginForm] = useState(false);
-    const [error, setError]                 = useState('');
-    // const [token,setToken]                  = useState(false);
-    const [posts, setPosts]                 = useState([]);
-    const [errorDel,setErrorDel]            = useState('');
-    const [isToken, setIsToken]             = useState(false);
+    const [login,setLogin]                      = useState({
+                                                    username: "",
+                                                    password: ""
+                                                });
+    const [showLoginForm, setShowLoginForm]     = useState(true);
+    const [error, setError]                     = useState('');
+    
+    const [posts, setPosts]                     = useState([]);
+    const [errorDel,setErrorDel]                = useState('');
+    const [isToken, setIsToken]                 = useState(false);
+    const [showAddPostForm,setshowAddPostForm]  = useState(false);
 
     /* End States */
 
@@ -27,14 +28,15 @@ export default function LoginForm () {
        
     }
 
-    const loginFormBtn = () => {
-        
-        setShowLoginForm(true);
+    const addNewPostBtn = () => {
+        //console.log("true");
+        setshowAddPostForm(true);
     
     }
     const logoutFormBtn = (e) => {
         e.preventDefault();
-        setShowLoginForm(false);
+        setShowLoginForm(true);
+        setshowAddPostForm(false);
         setIsToken(false);
         sessionStorage.removeItem("token_access");
     
@@ -127,6 +129,7 @@ export default function LoginForm () {
                 if(updatedPosts){
                     setFormValues({ ...formValues, title: '',content:'' })
                 }
+                setshowAddPostForm(false);
                 
             })
             .catch((err) => {
@@ -166,25 +169,25 @@ export default function LoginForm () {
     return (
         <>
 
-        <div className="post-div">
+        <div className="top-btn-div">
         
         {isToken && (
             <div className="btn-flex">
                 <button className="button theme-btn" onClick={logoutFormBtn}>Logout</button>
+                <button className="button theme-btn" onClick={addNewPostBtn}>Add New Post</button>
             </div>
         ) }
-         {!showLoginForm && !isToken && (
-            <button className="button theme-btn" id="login-btn-id" onClick={loginFormBtn}>Login</button>)}
+         {/* {!showLoginForm && !isToken && (
+            <button className="button theme-btn" id="login-btn-id" onClick={loginFormBtn}>Login</button>)} */}
         </div>
         
         {
-            showLoginForm && !isToken && (<div className="login posts-wrap" id="login-form-id">
-            
+            showLoginForm && !isToken && (<div className="login posts-wrap login-form" id="login-form-id">
+                
                 <div className="container">
-                    { error && <div className="error">{error}</div>}
-                   
-                   
-                   <div className="row post-div">
+                    <h2>LOGIN</h2>
+                    
+                    <div className="row post-div">
                         <label htmlFor="uname"><b>Username</b></label>
                         <input type="text" placeholder="Enter Username" value={login.username} name="uname" onChange={userName} required />
                     
@@ -193,6 +196,7 @@ export default function LoginForm () {
                             <div className="">  
                         <button type="submit" onClick={submitLoginForm} className="button theme-btn">Submit</button>
                         </div>
+                        { error && <div className="error">{error}</div>}
                     </div>  
                     
                 </div>
@@ -201,8 +205,8 @@ export default function LoginForm () {
         }
         
         <div className="posts-wrap divider">
-            {isToken && 
-            
+
+            {isToken && showAddPostForm &&
                 <div className="post-form">
                     <h3>Custom Post Form</h3>
                     {error && 
@@ -225,36 +229,41 @@ export default function LoginForm () {
                 </div>
             }
             
-            <div className="post-data">
-                <h3>My All Wordpress Post List :</h3>
-                {errorDel && 
-                    // <div className="error">{errorDel.message}</div>
-                    <div className="error">{errorDel ? 'Please Login First Then Try Again!' :''}</div>
-                    
-                }
-                <div className="nav post-lists">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Post Name</th>
-                                <th>Action</th>
+            {isToken && (
+                <div className="post-data">
+                    <h3>My All Wordpress Post List :</h3>
+                    {errorDel && 
+                        // <div className="error">{errorDel.message}</div>
+                        <div className="error">{errorDel ? 'Please Login First Then Try Again!' :''}</div>
+                        
+                    }
+
+                    <div className="nav post-lists">
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Post Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {posts && posts.map((post, index) => (
+                            <tr className="single-post-name" key={`index-${index}`}>
+                                <td>{index+1}</td>
+                                <td>{post.title.rendered}</td>
+                                <td><button className="theme-btn" post-id={post.id} onClick={() => delPost (post.id)} >Delete</button></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                        {posts && posts.map((post, index) => (
-                        <tr className="single-post-name" key={`index-${index}`}>
-                            <td>{index+1}</td>
-                            <td>{post.title.rendered}</td>
-                            <td><button className="theme-btn" post-id={post.id} onClick={() => delPost (post.id)} >Delete Post</button></td>
-                        </tr>
-                        ))}
-                        </tbody>
-                        <tfoot></tfoot>
-                    </table>
-                    
-                </div> 
-            </div>
+                            ))}
+                            </tbody>
+                            <tfoot></tfoot>
+                        </table>
+                        
+                    </div> 
+                </div>
+            )}
+
         </div>
         
        
