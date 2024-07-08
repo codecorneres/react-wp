@@ -228,7 +228,9 @@ export default function LoginForm () {
             <div className="post-data">
                 <h3>My All Wordpress Post List :</h3>
                 {errorDel && 
-                    <div className="error">{errorDel.message}</div>
+                    // <div className="error">{errorDel.message}</div>
+                    <div className="error">{errorDel ? 'Please Login First Then Try Again!' :''}</div>
+                    
                 }
                 <div className="nav post-lists">
                     <table>
