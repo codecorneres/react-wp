@@ -168,19 +168,20 @@ export default function LoginForm () {
 
     return (
         <>
-
+        {isToken && (
         <div className="top-btn-div">
         
-        {isToken && (
+        
             <div className="btn-flex">
                 <button className="button theme-btn" onClick={logoutFormBtn}>Logout</button>
                 <button className="button theme-btn" onClick={addNewPostBtn}>Add New Post</button>
             </div>
-        ) }
+       
          {/* {!showLoginForm && !isToken && (
             <button className="button theme-btn" id="login-btn-id" onClick={loginFormBtn}>Login</button>)} */}
         </div>
-        
+        ) }
+
         {
             showLoginForm && !isToken && (<div className="login posts-wrap login-form" id="login-form-id">
                 
