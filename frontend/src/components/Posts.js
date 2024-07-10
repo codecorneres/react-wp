@@ -24,7 +24,7 @@ export class Posts extends Component {
         return (
             <>
                 {posts.map(post =>
-                    <div>
+                    <div className="post-loop">
                     <h4>{post.title.rendered}</h4>
                     <p>{post.content.rendered}</p>
                     </div>

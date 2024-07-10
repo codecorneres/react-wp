@@ -1,13 +1,13 @@
-import '../App.css';
-import '../css/Test.css'; 
 import LoginForm from '../components/LoginForm';
 
 const Home = () => {
     return (
 
-            <div className='divider'>
+        <section className="post-wrapper page-content">
+            <div className="container">
                 <LoginForm />
             </div>
+        </section>
 
       );
   };

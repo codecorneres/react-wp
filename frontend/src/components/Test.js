@@ -125,7 +125,7 @@ function Test(){
   
   return (
     <>
-    <div className='test-wrap container'>
+    <div className='test-wrap'>
       <div className='counter-wrap'>
         <h1>{increament}</h1>
         <button className="" onClick={clicked}>Play</button>
@@ -134,7 +134,7 @@ function Test(){
 
       <div className='render-text-wrap'>
         <input type='text' name='name' className='text' onChange={handlChange} value={input} />
-        <button className="" onClick={renderText}>button</button>
+        <button className="theme-btn" onClick={renderText}>button</button>
         <p>{text}</p>
       </div>
 
@@ -148,13 +148,13 @@ function Test(){
 
       <div className='render-list-text-wrap'>
         <input type='text' name='list-name' className='text' onChange={listTextInput} value={listInput} />
-        <button className="" onClick={renderListText}>Add Name</button>
+        <button className="theme-btn" onClick={renderListText}>Add Name</button>
         <h4>Names</h4>
         {/* {editField()} */}
         { updateField && 
         <>
         <input type='text' name='update-name' className='text' onChange={editListTextInput} value={editListInput} />
-        <button className='' onClick={renderEditListText}>Update Name</button>
+        <button className='theme-btn' onClick={renderEditListText}>Update Name</button>
         </>
         }
         <ul>
@@ -164,8 +164,8 @@ function Test(){
           
               <li style={{ backgroundColor: 'pink', margin: '8px 0', padding: '5px 10px'}}>
                 {item} 
-              <button className="" onClick={() => deleteByIndex(index)}>Delete</button> 
-              <button className="" onClick={() => editByIndex(index)}>edit</button>
+              <button className="btn" onClick={() => deleteByIndex(index)}>Delete</button> 
+              <button className="btn" onClick={() => editByIndex(index)}>edit</button>
               </li>
             ))
           }

@@ -1,5 +1,7 @@
 import React,{ useState, useEffect } from "react";
 import axios from "axios";
+import close from '../images/cross.svg';
+import trashBin from '../images/trash.svg';
 
 export default function LoginForm () {
 
@@ -38,9 +40,14 @@ export default function LoginForm () {
         setShowLoginForm(true);
         setshowAddPostForm(false);
         setIsToken(false);
+        setError('');
         sessionStorage.removeItem("token_access");
     
         // sessionStorage.clear();
+    }
+    const closeForm = () => {
+        
+        setshowAddPostForm(false);
     }
 
     const submitLoginForm = () => {
@@ -165,35 +172,25 @@ export default function LoginForm () {
         
     }
 
-
     return (
         <>
-        {isToken && (
-        <div className="top-btn-div">
-        
-        
-            <div className="btn-flex">
-                <button className="button theme-btn" onClick={logoutFormBtn}>Logout</button>
-                <button className="button theme-btn" onClick={addNewPostBtn}>Add New Post</button>
-            </div>
-       
-         {/* {!showLoginForm && !isToken && (
-            <button className="button theme-btn" id="login-btn-id" onClick={loginFormBtn}>Login</button>)} */}
-        </div>
-        ) }
-
         {
             showLoginForm && !isToken && (<div className="login posts-wrap login-form" id="login-form-id">
                 
-                <div className="container">
-                    <h2>LOGIN</h2>
+                <div className="login-box">
+                    <div className="title">
+                        <h2 className="text-2xl font-bold">LOGIN</h2>
+                    </div>
                     
-                    <div className="row post-div">
-                        <label htmlFor="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" value={login.username} name="uname" onChange={userName} required />
-                    
-                        <label htmlFor="password"><b>Password</b></label>
+                    <div className="post-div">
+                        <div className="form-group">
+                            <label htmlFor="uname">Username</label>
+                            <input type="text" placeholder="Enter Username" value={login.username} name="uname" onChange={userName} required />
+                        </div>
+                        <div className="form-group">
+                        <label htmlFor="password">Password</label>
                         <input type="password" placeholder="Enter Password" value={login.password} name="password" onChange={uPassword} required />
+                        </div>
                             <div className="">  
                         <button type="submit" onClick={submitLoginForm} className="button theme-btn">Submit</button>
                         </div>
@@ -204,70 +201,90 @@ export default function LoginForm () {
                 
             </div>)
         }
-        
-        <div className="posts-wrap divider">
-
-            {isToken && showAddPostForm &&
-                <div className="post-form">
-                    <h3>Custom Post Form</h3>
-                    {error && 
-                        <div className="error">
-                        {error ? 'Post Not Created. Please Try Again!' :''}
-                        </div>
-                    }
-                    <div className="post-div">
-                        <label>Post Name:</label>
-                        <input type="text" name="post-name" value={formValues.title} onChange={addName}/>
-                    </div>
-                    <div className="post-div">
-                        <label>Post Content:</label>
-                        <textarea rows="10" cols="20" name="post-content" value={formValues.content} className="post-content" onChange={addContent}></textarea>
-                    </div>
-                    <div className="post-button">
-                        <button type="submit" className="theme-btn" onClick={submitPostFormData} >Add New Post</button>
-                    </div>
-                    
-                </div>
-            }
+        {isToken && 
+        <div className="user-post-data">
+            <div className="top-btn-div">
             
-            {isToken && (
-                <div className="post-data">
-                    <h3>My All Wordpress Post List :</h3>
-                    {errorDel && 
-                        // <div className="error">{errorDel.message}</div>
-                        <div className="error">{errorDel ? 'Please Login First Then Try Again!' :''}</div>
-                        
-                    }
-
-                    <div className="nav post-lists">
-                        
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Post Name</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {posts && posts.map((post, index) => (
-                            <tr className="single-post-name" key={`index-${index}`}>
-                                <td>{index+1}</td>
-                                <td>{post.title.rendered}</td>
-                                <td><button className="theme-btn" post-id={post.id} onClick={() => delPost (post.id)} >Delete</button></td>
-                            </tr>
-                            ))}
-                            </tbody>
-                            <tfoot></tfoot>
-                        </table>
-                        
-                    </div> 
+            
+                <div className="btn-flex">
+                    <button className="button theme-btn" onClick={logoutFormBtn}>Logout</button>
+                    <button className="button theme-btn" onClick={addNewPostBtn}>Add New Post</button>
                 </div>
-            )}
-
-        </div>
         
-       
+            {/* {!showLoginForm && !isToken && (
+                <button className="button theme-btn" id="login-btn-id" onClick={loginFormBtn}>Login</button>)} */}
+            </div>
+            <div className="posts-wrap">
+
+                {showAddPostForm &&
+                    <div className="post-form">
+                        <div className="title">
+                        <h2 className="text-2xl font-bold">Custom Post Form</h2>
+                        </div>
+                        <div className="form-close">
+                            <span className="close-btn absolute top-[18px] right-[20px] w-5" onClick={closeForm}><img src={close} alt="close" /></span>
+                        </div>
+                        {error && 
+                            <div className="error">
+                            {error ? 'Post Not Created. Please Try Again!' :''}
+                            </div>
+                        }
+                        <div className="form-group">
+                            <label>Post Name:</label>
+                            <input type="text" name="post-name" value={formValues.title} onChange={addName}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Post Content:</label>
+                            <textarea rows="10" cols="20" name="post-content" value={formValues.content} className="post-content" onChange={addContent}></textarea>
+                        </div>
+                        <div className="post-button">
+                            <button type="submit" className="theme-btn" onClick={submitPostFormData} >Add New Post</button>
+                        </div>
+                        
+                    </div>
+                }
+                
+                
+                    <div className="post-data">
+                        <div className="title">
+                            <h2>My All Wordpress Post List :</h2>
+                        </div>
+                        
+                        {errorDel && 
+                            // <div className="error">{errorDel.message}</div>
+                            <div className="error">{errorDel ? 'Please Login First Then Try Again!' :''}</div>
+                            
+                        }
+
+                        <div className="post-lists">
+                            
+                            <table width="100%">
+                                <thead>
+                                    <tr>
+                                        <th className="text-start py-2 border-b-[1px] border-b-[#ddd]">ID</th>
+                                        <th className="text-start py-2 border-b-[1px] border-b-[#ddd]">Post Name</th>
+                                        <th className="py-2 border-b-[1px] border-b-[#ddd]">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {posts && posts.map((post, index) => (
+                                <tr className="single-post-name odd:bg-gray-200" key={`index-${index}`}>
+                                    <td className="py-2 pl-2">{index+1}</td>
+                                    <td className="py-2">{post.title.rendered}</td>
+                                    <td align="center" valign="middle" className="py-2"><button className="btn ml-0" post-id={post.id} onClick={() => delPost (post.id)} ><img src={trashBin} alt="delete" className="w-4" /></button></td>
+                                </tr>
+                                ))}
+                                </tbody>
+                                <tfoot></tfoot>
+                            </table>
+                            
+                        </div> 
+                    </div>
+
+            </div>
+        </div>
+        }
+        
         
         </>
     );

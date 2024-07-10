@@ -101,7 +101,7 @@ function Form () {
 
     return (
         <>
-        <div className='form-wrap container'>
+        <div className='form-wrap'>
 
           <div className='form-data-wrap'>
             {/* <form> */}
@@ -112,7 +112,7 @@ function Form () {
                     <label>Number:</label>
                     <input type='text' name='tel' className='number' onChange={listTelInput} value={telInput} />
                     
-                    <button value="Add Data" onClick={renderListText} >Add Data</button>
+                    <button value="Add Data" className="theme-btn" onClick={renderListText} >Add Data</button>
                     
                 </div>
                 {error && <div style={{ color: 'red'}}>{error}</div>}
@@ -151,7 +151,7 @@ function Form () {
                                     <td>{list.number}</td>
                                     <td>
                                         <button className="" onClick={() => deleteByIndex(index)}>Delete</button> 
-                                        <button className="" onClick={() => editByIndex(index)}>Edit</button>
+                                        {/* <button className="" onClick={() => editByIndex(index)}>Edit</button> */}
                                     </td>
                                 </tr>
                             ))
