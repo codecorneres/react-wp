@@ -9,7 +9,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import parse from 'react-html-parser';
-
+//import { Component } from '@wordpress/element';
+import './css/wp.css';
 
 function App() {
   const [pages, setPages]  = useState([]);
@@ -22,7 +23,7 @@ function App() {
 
     const pages = await response.json();
     setPages(pages);
-    //console.log(pages);
+    console.log(pages);
     
 };
 useEffect(() => {
@@ -43,6 +44,7 @@ useEffect(() => {
                 <Route path="/contact" element={<Contact />} /> 
                 {pages && pages.map((page, index) => (
                   <Route key={index} path={`/${page.slug}`} element={<div className='wp-page-content'><div className='container'><div className='wp-page-title'><h1 className='text-2xl font-bold'>{ page.title.rendered }</h1></div><div className='wp-content'>{parse(page.content.rendered)}</div></div></div>} />
+                  // <div className='wp-content' dangerouslySetInnerHTML={{__html: page.content.rendered}}></div>
                 ))}
               </Routes>
         </main>

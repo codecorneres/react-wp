@@ -5,7 +5,7 @@ function Footer () {
     return (
         <>
          <footer className="app-footer">
-          <p>This is a footer.</p>
+          <p>Footer</p>
         </footer>
         </>
     )
