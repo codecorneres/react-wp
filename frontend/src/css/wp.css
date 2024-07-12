@@ -261,6 +261,27 @@ figure.wp-block-gallery .components-spinner{
 
 /* ======= style.css ========== */
 
+/* Quote Folder */
+.wp-block-quote{
+  box-sizing:border-box;
+  overflow-wrap:break-word;
+}
+.wp-block-quote.is-large:where(:not(.is-style-plain)),.wp-block-quote.is-style-large:where(:not(.is-style-plain)){
+  margin-bottom:1em;
+  padding:0 1em;
+}
+.wp-block-quote.is-large:where(:not(.is-style-plain)) p,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) p{
+  font-size:1.5em;
+  font-style:italic;
+  line-height:1.6;
+}
+.wp-block-quote.is-large:where(:not(.is-style-plain)) cite,.wp-block-quote.is-large:where(:not(.is-style-plain)) footer,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) cite,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) footer{
+  font-size:1.125em;
+  text-align:right;
+}
+.wp-block-quote>cite{
+  display:block;
+}
 /* Gallery Folder */
 .blocks-gallery-grid:not(.has-nested-images),.wp-block-gallery:not(.has-nested-images){
   display:flex;
@@ -627,7 +648,33 @@ figure.wp-block-gallery.has-nested-images{
   }
 /* ======= End Style CSS ====== */
 
-/* ===== theme.css ====== */
+/* ===== theme css ====== */
+
+/* Quote Folder */
+.wp-block-quote{
+  border-left:.25em solid;
+  margin:0 0 1.75em;
+  padding-left:1em;
+}
+.wp-block-quote cite,.wp-block-quote footer{
+  color:currentColor;
+  font-size:.8125em;
+  font-style:normal;
+  position:relative;
+}
+.wp-block-quote.has-text-align-right{
+  border-left:none;
+  border-right:.25em solid;
+  padding-left:0;
+  padding-right:1em;
+}
+.wp-block-quote.has-text-align-center{
+  border:none;
+  padding-left:0;
+}
+.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote.is-style-plain{
+  border:none;
+}
 
 /* Group Folder */
   :where(.wp-block-group.has-background){

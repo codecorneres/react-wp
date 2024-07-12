@@ -34,8 +34,11 @@ function Header () {
                             <nav className='main-nav-bar'>
                                 <ul>
                                     
-                                    {pages && pages.map((page) => (
-                                    <li><Link to={`/${page.slug}`} className="nav-link" >{ page.title.rendered }</Link></li>
+                                    {pages && pages.map((page, i) => (
+                                        <li key={i}>
+                                            <Link to={`/${page.slug}`}  className="nav-link" >
+                                            { page.title.rendered }</Link>
+                                        </li>
                                     ))}
                                     <li><Link to="/about" className="nav-link">About</Link></li>
                                     <li><Link to="/contact" className="nav-link">Contact</Link></li>
